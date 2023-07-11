@@ -30,6 +30,7 @@ You should have received a copy of the GNU General Public License along with QUA
 #include <algorithm>
 #include "Peer.hpp"
 #include "Distribution.hpp"
+#include "infect.hpp"
 
 namespace quantas{
 
