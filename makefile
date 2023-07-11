@@ -23,12 +23,13 @@ PROJECT_DIR := quantas
 
 # ALGFILE := ExamplePeer
 
-ALGFILE := BitcoinPeer
-INPUTFILE := BitcoinSpeedTest.json
+# ALGFILE := BitcoinPeer
+# INPUTFILE := BitcoinInput.json
 
 # ALGFILE := EthereumPeer
 
-# ALGFILE := PBFTPeer
+ALGFILE := PBFTPeer
+INPUTFILE := PBFTInput.json
 
 # ALGFILE := RaftPeer
 
