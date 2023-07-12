@@ -1,5 +1,5 @@
 /*
-Copyright 2022
+Copyright 2022-2023
 
 This file is part of QUANTAS.
 QUANTAS is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.
@@ -28,6 +28,7 @@ You should have received a copy of the GNU General Public License along with QUA
 #include <memory>
 #include <thread>
 #include <algorithm>
+#include <functional>
 #include "Peer.hpp"
 #include "Distribution.hpp"
 #include "infect.hpp"
@@ -75,6 +76,10 @@ namespace quantas{
         void                                setDistribution     (json distribution)                             { _distribution.setDistribution(distribution); }
         void                                setLog              (ostream&);
         ostream*                            getLog              ()const                                         { return _log; }
+        void                                infectPeers         (int);
+	    void                                infectPeers         (function<void(Peer<type_msg>*,function<void()>)>,
+                                                                 int,
+                                                                 function<void(Peer<type_msg>*)>);
 
         // getters
         int                                 size                ()const                                         {return (int)_peers.size();};
@@ -373,6 +378,8 @@ namespace quantas{
     template<class type_msg, class peer_type>
     void Network<type_msg,peer_type>::performComputation(int begin, int end){
         for (int i = begin; i < end; i++) {
+            // Perform the computation. If computation has been modified,
+            // perform the modified computation.
             _peers[i]->maybePerformComputation();
         }
     }
@@ -403,6 +410,16 @@ namespace quantas{
         }
 
         return out;
+    }
+
+	template<class type_msg, class peer_type>
+	void Network<type_msg,peer_type>::infectPeers(
+                    function<void(Peer<type_msg>*,function<void()>)> infection,
+                    int numberOfPeersToInfect,
+                    function<void(Peer<type_msg>*)> fn) {
+        for (auto peer = _peers.begin(), i=0; i < numberOfPeersToInfect; ++peer, ++i) {
+            (*peer)->infect(infection);
+        }
     }
 
     template<class type_msg, class peer_type>
