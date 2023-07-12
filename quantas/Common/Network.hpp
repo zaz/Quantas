@@ -216,7 +216,6 @@ namespace quantas{
     template<class type_msg, class peer_type>
     void Network<type_msg, peer_type>::fullyConnect(int numberOfPeers) {
         for (int i = 0; i < numberOfPeers; i++) {
-            crash(_peers[i]);
             // Activate peer
             for (int j = i+1; j < numberOfPeers; j++) {
                 _peers[i]->addNeighbor(_peers[j]->id());
