@@ -7,7 +7,12 @@ QUANTAS is distributed in the hope that it will be useful, but WITHOUT ANY WARRA
 You should have received a copy of the GNU General Public License along with QUANTAS. If not, see <https://www.gnu.org/licenses/>.
 */
 
-// This set of functions handles "infecting" a peer.
+// This is a set of Infections that can be passed to Peer::infect.
+//
+// FIXME contradicts Infection.hpp
+// An Infection is a function that replaces the performComputation function.
+// An Infection takes a Peer and, optionally, the original performComputation.
+// 
 // An infected peer is simply a peer that has modified behavior.
 // The modified behavior may be in accordance with the protocol, or it may not.
 // In the latter case, the peer is said to be Byzantine.
@@ -16,51 +21,14 @@ You should have received a copy of the GNU General Public License along with QUA
 #define infect_hpp
 
 #include <functional>
-
 #include "Peer.hpp"
-
-using std::ofstream;
-using std::thread;
-using std::function;
+#include "Infection.hpp"
 
 namespace quantas {
 
-	// TODO: test this whole thing
-	// TODO: move to Infect.hpp
-	// XXX QUESTION should this class even exist?
-	template<class type_msg>  // XXX typedef cannot be a template
-	class Infection {
-		function<void(Peer<type_msg>*,function<void()>)> _infection;
-		// allow for creating infections that don't take performComputation as an argument
-		function<void(Peer<type_msg>*)> _fn;
-	public:
-		Infection(function<void(Peer<type_msg>*,function<void()>)> fn) : _infection(fn) {}
-		Infection(function<void(Peer<type_msg>*)> fn) : _fn(fn) {}
-
-		/**
-		 * An infection is a higher-order function:
-		 *
-		 * @param the peer that we are performing computation on
-		 * @param the original performComputation function
-		 * @return a modified version of performComputation
-		 */
-		void operator()(Peer<type_msg>* peer, function<void()> performComputation) {
-			if (_infection != nullptr)
-				// XXX: do we need to use bind so peer is properly bound to this?
-				_infection(peer, performComputation);
-			else
-				_fn(peer, performComputation);
-		}
-	};
-
-	// If you do not want to call performComputation, you can infect with a
-	// function that does not take performComputation as an argument:
 	template<class type_msg>
 	void doNothing(Peer<type_msg>* peer) {}
 
-	// void crash(Peer<type_msg>* peer) {
-	// 	return [](Peer<type_msg>* peer) {};
-	// }
 }
 
 #endif /* infect_hpp */
