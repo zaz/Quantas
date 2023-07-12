@@ -28,7 +28,7 @@ namespace quantas {
 		Infection(function<void(Peer<type_msg>*)> fn) : _fn(fn) {}
 
 		void operator()(Peer<type_msg>* peer) {
-			fn(peer);
+			_fn(peer);
 		}
 	};
 
