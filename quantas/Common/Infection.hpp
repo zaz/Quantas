@@ -20,29 +20,15 @@ namespace quantas {
 	// TODO: test this whole thing
 	// TODO: move to Infect.hpp
 	// XXX QUESTION should this class even exist?
-	template<class type_msg>  // XXX typedef cannot be a template
+	// The only reason I created it was because typedef cannot be a template.
+	template<class type_msg>
 	class Infection {
-		function<void(Peer<type_msg>*,function<void()>)> _infection;
-		// allow for creating infections that don't take performComputation as an argument
 		function<void(Peer<type_msg>*)> _fn;
 	public:
-		Infection(function<void(Peer<type_msg>*,function<void()>)> fn) : _infection(fn) {}
 		Infection(function<void(Peer<type_msg>*)> fn) : _fn(fn) {}
 
-		/**
-		 * An infection is a higher-order function:
-		 *
-		 * @param the peer that we are performing computation on
-		 * @param the original performComputation function
-         * FIXME contradicts infect.hpp
-		 * @return a modified version of performComputation
-		 */
-		void operator()(Peer<type_msg>* peer, function<void()> performComputation) {
-			if (_infection != nullptr)
-				// XXX: do we need to use bind so peer is properly bound to this?
-				_infection(peer, performComputation);
-			else
-				_fn(peer, performComputation);
+		void operator()(Peer<type_msg>* peer) {
+			fn(peer);
 		}
 	};
 

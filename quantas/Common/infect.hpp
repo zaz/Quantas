@@ -9,10 +9,9 @@ You should have received a copy of the GNU General Public License along with QUA
 
 // This is a set of Infections that can be passed to Peer::infect.
 //
-// FIXME contradicts Infection.hpp
 // An Infection is a function that replaces the performComputation function.
-// An Infection takes a Peer and, optionally, the original performComputation.
-// 
+// It takes as argument the infected peer.
+//
 // An infected peer is simply a peer that has modified behavior.
 // The modified behavior may be in accordance with the protocol, or it may not.
 // In the latter case, the peer is said to be Byzantine.
@@ -24,10 +23,15 @@ You should have received a copy of the GNU General Public License along with QUA
 #include "Peer.hpp"
 #include "Infection.hpp"
 
-namespace quantas {
+// Here be dragons. Some of the Infections we define below deliberately do
+// abnormal things, such as ignoring their paramaters.
+#pragma GCC diagnostic ignored "-Wunused-parameter"
 
+namespace quantas::infection {
+
+	// make a node do nothing
 	template<class type_msg>
-	void doNothing(Peer<type_msg>* peer) {}
+	auto crash = Infection<type_msg>([](Peer<type_msg>* peer) {});
 
 }
 
