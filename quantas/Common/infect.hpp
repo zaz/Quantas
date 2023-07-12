@@ -21,7 +21,6 @@ You should have received a copy of the GNU General Public License along with QUA
 
 #include <functional>
 #include "Peer.hpp"
-#include "Infection.hpp"
 
 // Here be dragons. Some of the Infections we define below deliberately do
 // abnormal things, such as ignoring their paramaters.
@@ -31,7 +30,7 @@ namespace quantas::infection {
 
 	// make a node do nothing
 	template<class type_msg>
-	auto crash = Infection<type_msg>([](Peer<type_msg>* peer) {});
+	auto crash = [](Peer<type_msg>* peer) {};
 
 }
 

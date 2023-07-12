@@ -35,9 +35,10 @@ You should have received a copy of the GNU General Public License along with QUA
 
 namespace quantas{
 
-    using std::string;
     using std::ostream;
+    using std::string;
     using std::vector;
+    using std::function;
     using std::cout;
     using std::endl;
     using std::left;
