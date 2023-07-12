@@ -76,10 +76,7 @@ namespace quantas{
         void                                setDistribution     (json distribution)                             { _distribution.setDistribution(distribution); }
         void                                setLog              (ostream&);
         ostream*                            getLog              ()const                                         { return _log; }
-        void                                infectPeers         (int);
-	    void                                infectPeers         (function<void(Peer<type_msg>*,function<void()>)>,
-                                                                 int,
-                                                                 function<void(Peer<type_msg>*)>);
+        void                                infectPeers         (int, function<void(Peer<type_msg>*)>);
 
         // getters
         int                                 size                ()const                                         {return (int)_peers.size();};
@@ -412,14 +409,13 @@ namespace quantas{
         return out;
     }
 
+    // XXX QUESTION Any issue with FIRST n peers? Or should we randomize?
+    // overrides the behavior of the first n peers with the infection function
 	template<class type_msg, class peer_type>
-	void Network<type_msg,peer_type>::infectPeers(
-                    function<void(Peer<type_msg>*,function<void()>)> infection,
-                    int numberOfPeersToInfect,
-                    function<void(Peer<type_msg>*)> fn) {
-        for (auto peer = _peers.begin(), i=0; i < numberOfPeersToInfect; ++peer, ++i) {
-            (*peer)->infect(infection);
-        }
+	void Network<type_msg,peer_type>::infectPeers(int n,
+                                    function<void(Peer<type_msg>*)> infection) {
+        for (auto peer = _peers.begin(), i=0; i < n; ++peer, ++i)
+                (*peer)->infect(infection);
     }
 
     template<class type_msg, class peer_type>

@@ -55,12 +55,6 @@ namespace quantas{
         virtual void                       initParameters          (const vector<Peer<message>*>& _peers, json parameters) {};
         // perform one step of the Algorithm with the messages in inStream
         virtual void                       performComputation      () = 0;
-        // layer of abstraction over performComputation to allow the peer's
-        // behavior to be modified at runtime
-        std::function<void(Peer*)> performComputationWrapper = &Peer::performComputation;
-        void replaceWrapper   (std::function<void(Peer*)> newWrapper)                               { performComputationWrapper = newWrapper; };
-        // performComputation, unless the peer is Byzantine
-        void                               maybePerformComputation ()                                     { performComputationWrapper(this); };
         // ran once per round, used to submit transactions or collect metrics
         virtual void                       endOfRound              (const vector<Peer<message>*>& _peers) {};
         static int                         getRound                ()                                     { return _round; };
@@ -70,6 +64,13 @@ namespace quantas{
         static bool                        lastRound               ()                                     { return _lastRound == _round; };
         static void                        initializeSourcePoolSize(int sourcePoolSize)                   { _sourcePoolSize = sourcePoolSize; };
         static int                         getSourcePoolSize       ()                                     { return _sourcePoolSize; };
+
+        // layer of abstraction over performComputation to allow the peer's
+        // behavior to be modified at runtime
+        std::function<void(Peer*)> performComputationWrapper = &Peer::performComputation;
+        void                               infect                  (std::function<void(Peer*)> newWrapper) { performComputationWrapper = newWrapper; }
+        // performComputation, unless the peer is Byzantine
+        void                               maybePerformComputation ()                                     { performComputationWrapper(this); };
     private:
         // current round
         static int                         _round;
