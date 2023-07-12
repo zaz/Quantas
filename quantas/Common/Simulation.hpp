@@ -94,11 +94,14 @@ namespace quantas {
 			if (config.contains("parameters")) {
 				system.initParameters(config["parameters"]);
 			}
-			
+
 			//cout << "Test " << i + 1 << endl;
 			for (int j = 0; j < config["rounds"]; j++) {
 				//cout << "ROUND " << j << endl;
 				LogWriter::instance()->setRound(j); // Set the round number for logging
+
+				if (j == 10)
+					system.infectPeers(20, infection::crash<type_msg>);
 
 				// do the receive phase of the round
 
