@@ -410,13 +410,14 @@ namespace quantas{
         return out;
     }
 
-    // XXX QUESTION Any issue with FIRST n peers? Or should we randomize?
     // overrides the behavior of the first n peers with the infection function
-	template<class type_msg, class peer_type>
-	void Network<type_msg,peer_type>::infectPeers(int n,
+    // must avoid infecting _peers[0] because it handles logging
+    // XXX QUESTION Any issue with LAST n peers? Or should we randomize?
+    template<class type_msg, class peer_type>
+    void Network<type_msg,peer_type>::infectPeers(int n,
                                     function<void(Peer<type_msg>*)> infection) {
-        for (auto peer = _peers.begin(), i=0; i < n; ++peer, ++i)
-                (*peer)->infect(infection);
+        for (auto peer = _peers.rbegin(), i=0; i < n; ++peer, ++i)
+            (*peer)->infect(infection);
     }
 
     template<class type_msg, class peer_type>
