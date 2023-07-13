@@ -100,20 +100,24 @@ namespace quantas {
 				//cout << "ROUND " << j << endl;
 				LogWriter::instance()->setRound(j); // Set the round number for logging
 
-				if (j == 10)
-					system.infectPeers(20, infection::crash<type_msg>);
+				if (j == config["infectPeersAtRound"])
+					system.infectPeers(config["numberOfPeersToInfect"],
+									   infection::crash<type_msg>);
 
 				// do the receive phase of the round
 
-				BS::multi_future<void> receive_loop = pool.parallelize_loop(networkSize, [this](int a, int b){system.receive(a, b);});
+				BS::multi_future<void> receive_loop = pool.parallelize_loop(networkSize,
+					[this](int a, int b){system.receive(a, b);});
 				receive_loop.wait();
 
-				BS::multi_future<void> compute_loop = pool.parallelize_loop(networkSize, [this](int a, int b){system.performComputation(a, b);});
+				BS::multi_future<void> compute_loop = pool.parallelize_loop(networkSize,
+					[this](int a, int b){system.performComputation(a, b);});
 				compute_loop.wait();
 
 				system.endOfRound(); // do any end of round computations
 
-				BS::multi_future<void> transmit_loop = pool.parallelize_loop(networkSize, [this](int a, int b){system.transmit(a, b);});
+				BS::multi_future<void> transmit_loop = pool.parallelize_loop(networkSize,
+					[this](int a, int b){system.transmit(a, b);});
 				transmit_loop.wait();
 			}
 		}
