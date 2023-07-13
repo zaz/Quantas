@@ -2,7 +2,7 @@
   "experiments": [
     {
       "algorithm": "PBFT",
-      "logFile": "analysis/PBFT/d10/r1000/p100/i10.out",
+      "logFile": "analysis/PBFT/d10/r1000/p100/i32t.out",
       "threadCount": 1,
       "distribution": {
         "type": "uniform",
@@ -13,14 +13,14 @@
         "initialPeers": 100,
         "totalPeers": 100
       },
-      "tests": 10,
+      "tests": 1000,
       "rounds": 1000,
-      "infectPeersAtRound": 500,
-      "numberOfPeersToInfect": 10
+      "infectPeersAtRound": 200,
+      "numberOfPeersToInfect": 32
     },
     {
       "algorithm": "PBFT",
-      "logFile": "analysis/PBFT/d10/r1000/p100/i20.out",
+      "logFile": "analysis/PBFT/d10/r1000/p100/i34t.out",
       "threadCount": 1,
       "distribution": {
         "type": "uniform",
@@ -31,14 +31,14 @@
         "initialPeers": 100,
         "totalPeers": 100
       },
-      "tests": 10,
+      "tests": 1000,
       "rounds": 1000,
-      "infectPeersAtRound": 500,
-      "numberOfPeersToInfect": 20
+      "infectPeersAtRound": 200,
+      "numberOfPeersToInfect": 34
     },
     {
       "algorithm": "PBFT",
-      "logFile": "analysis/PBFT/d10/r1000/p100/i30.out",
+      "logFile": "analysis/PBFT/d10/r1000/p100/i31t.out",
       "threadCount": 1,
       "distribution": {
         "type": "uniform",
@@ -49,28 +49,10 @@
         "initialPeers": 100,
         "totalPeers": 100
       },
-      "tests": 10,
+      "tests": 1000,
       "rounds": 1000,
-      "infectPeersAtRound": 500,
-      "numberOfPeersToInfect": 30
-    },
-    {
-      "algorithm": "PBFT",
-      "logFile": "analysis/PBFT/d10/r1000/p100/i40.out",
-      "threadCount": 1,
-      "distribution": {
-        "type": "uniform",
-        "maxDelay": 10
-      },
-      "topology": {
-        "type": "complete",
-        "initialPeers": 100,
-        "totalPeers": 100
-      },
-      "tests": 10,
-      "rounds": 1000,
-      "infectPeersAtRound": 500,
-      "numberOfPeersToInfect": 40
+      "infectPeersAtRound": 200,
+      "numberOfPeersToInfect": 31
     }
   ]
 }
