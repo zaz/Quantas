@@ -22,6 +22,10 @@ You should have received a copy of the GNU General Public License along with QUA
 
 using std::map; using std::function; using std::string;
 
+// Here be dragons. Some of the Infections we define below deliberately do
+// abnormal things, such as ignoring their paramaters.
+#pragma GCC diagnostic ignored "-Wunused-parameter"
+
 namespace quantas {
 
 	template<class type_msg>
