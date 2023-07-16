@@ -18,8 +18,8 @@ namespace quantas{
 
     struct PBFTPeerMessage {
 
-        int 				Id = -1; // node who sent the message
-        int					trans = -1; // the transaction id
+        int                 Id = -1; // node who sent the message
+        int                 trans = -1; // the transaction id
         int                 sequenceNum = -1;
         string              messageType = ""; // phase
         int                 roundSubmitted;
@@ -50,9 +50,9 @@ namespace quantas{
         // vector of vectors of messages that have been received
         vector<vector<PBFTPeerMessage>> receivedMessages;
         // vector of recieved transactions
-        vector<PBFTPeerMessage>		    transactions;
+        vector<PBFTPeerMessage>         transactions;
         // vector of confirmed transactions
-        vector<PBFTPeerMessage>		    confirmedTrans;
+        vector<PBFTPeerMessage>         confirmedTrans;
         // latency of confirmed transactions
         int                             latency = 0;
         // rate at which to submit transactions ie 1 in x chance for all n nodes
