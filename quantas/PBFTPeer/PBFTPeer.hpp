@@ -32,8 +32,8 @@ namespace quantas{
         PBFTPeer                             (const PBFTPeer &rhs);
         ~PBFTPeer                            ();
 
-        // perform one step of the Algorithm with the messages in inStream
-        void                 performComputation();
+        void                 defaultComputation();
+
         // perform any calculations needed at the end of a round such as determine throughput (only ran once, not for every peer)
         void                 endOfRound(const vector<Peer<PBFTPeerMessage>*>& _peers);
 

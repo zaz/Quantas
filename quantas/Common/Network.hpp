@@ -378,7 +378,7 @@ namespace quantas{
         for (int i = begin; i < end; i++) {
             // Perform the computation. If computation has been modified,
             // perform the modified computation.
-            _peers[i]->maybePerformComputation();
+            _peers[i]->performComputation();
         }
     }
 
@@ -415,9 +415,9 @@ namespace quantas{
     // XXX QUESTION Any issue with LAST n peers? Or should we randomize?
     template<class type_msg, class peer_type>
     void Network<type_msg,peer_type>::infectPeers(int n,
-                                    function<void(Peer<type_msg>*)> infection) {
+                                    function<void(Peer<type_msg>*)> infect) {
         for (auto peer = _peers.rbegin(), i=0; i < n; ++peer, ++i)
-            (*peer)->infect(infection);
+            infect(*peer);
     }
 
     template<class type_msg, class peer_type>

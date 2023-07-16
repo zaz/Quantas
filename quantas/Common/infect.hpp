@@ -7,10 +7,7 @@ QUANTAS is distributed in the hope that it will be useful, but WITHOUT ANY WARRA
 You should have received a copy of the GNU General Public License along with QUANTAS. If not, see <https://www.gnu.org/licenses/>.
 */
 
-// This is a set of Infections that can be passed to Peer::infect.
-//
-// An Infection is a function that replaces the performComputation function.
-// It takes as argument the infected peer.
+// An Infection is a function that takes a Peer and modifies its behavior.
 //
 // An infected peer is simply a peer that has modified behavior.
 // The modified behavior may be in accordance with the protocol, or it may not.
@@ -25,17 +22,14 @@ You should have received a copy of the GNU General Public License along with QUA
 
 using std::map; using std::function; using std::string;
 
-// Here be dragons. Some of the Infections we define below deliberately do
-// abnormal things, such as ignoring their paramaters.
-#pragma GCC diagnostic ignored "-Wunused-parameter"
-
 namespace quantas {
 
-	// create a map "infection"
 	template<class type_msg>
 	map<string, function<void(Peer<type_msg>* peer)>> infection = {
 
-		{ "crash", [](Peer<type_msg>* peer) {} }
+		{ "crash", [](Peer<type_msg>* peer) {
+			peer->computationPerformer = [](Peer<type_msg>* peer) {};
+		} }
 
 	};
 

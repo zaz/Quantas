@@ -26,17 +26,15 @@ namespace quantas {
 
 	}
 
-	void PBFTPeer::performComputation() {
+	void PBFTPeer::defaultComputation() {
 		if (id() == 0 && getRound() == 0) {
 			submitTrans(currentTransaction);
 		}
 		if (true)
 			checkInStrm();
-
 		if (true)
 			checkContents();
-
-	}
+	};
 
 	void PBFTPeer::endOfRound(const vector<Peer<PBFTPeerMessage>*>& _peers) {
 		const vector<PBFTPeer*> peers = reinterpret_cast<vector<PBFTPeer*> const&>(_peers);

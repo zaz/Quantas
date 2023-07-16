@@ -53,8 +53,17 @@ namespace quantas{
         virtual ~Peer                                              () = 0;
         // initialize any user defined parameters
         virtual void                       initParameters          (const vector<Peer<message>*>& _peers, json parameters) {};
+
         // perform one step of the Algorithm with the messages in inStream
-        virtual void                       performComputation      () = 0;
+        // Use the Strategy pattern so that peer behavior can be modified after
+        // the peer is created.
+        std::function<void(Peer*)> computationPerformer = [] (Peer* peer) { peer->defaultComputation(); };
+        virtual void                       defaultComputation      () = 0;
+        void                               performComputation      () { computationPerformer(this); };
+        void setComputationPerformer(std::function<void(Peer*)> newComputationPerformer) {
+            computationPerformer = newComputationPerformer;
+        }
+
         // ran once per round, used to submit transactions or collect metrics
         virtual void                       endOfRound              (const vector<Peer<message>*>& _peers) {};
         static int                         getRound                ()                                     { return _round; };
@@ -64,13 +73,6 @@ namespace quantas{
         static bool                        lastRound               ()                                     { return _lastRound == _round; };
         static void                        initializeSourcePoolSize(int sourcePoolSize)                   { _sourcePoolSize = sourcePoolSize; };
         static int                         getSourcePoolSize       ()                                     { return _sourcePoolSize; };
-
-        // layer of abstraction over performComputation to allow the peer's
-        // behavior to be modified at runtime
-        std::function<void(Peer*)> performComputationWrapper = &Peer::performComputation;
-        void                               infect                  (std::function<void(Peer*)> newWrapper) { performComputationWrapper = newWrapper; }
-        // performComputation, unless the peer is Byzantine
-        void                               maybePerformComputation ()                                     { performComputationWrapper(this); };
     private:
         // current round
         static int                         _round;
