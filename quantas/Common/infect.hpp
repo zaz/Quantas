@@ -19,18 +19,25 @@ You should have received a copy of the GNU General Public License along with QUA
 #ifndef infect_hpp
 #define infect_hpp
 
+#include <map>
 #include <functional>
 #include "Peer.hpp"
+
+using std::map; using std::function; using std::string;
 
 // Here be dragons. Some of the Infections we define below deliberately do
 // abnormal things, such as ignoring their paramaters.
 #pragma GCC diagnostic ignored "-Wunused-parameter"
 
-namespace quantas::infection {
+namespace quantas {
 
-	// make a node do nothing
+	// create a map "infection"
 	template<class type_msg>
-	auto crash = [](Peer<type_msg>* peer) {};
+	map<string, function<void(Peer<type_msg>* peer)>> infection = {
+
+		{ "crash", [](Peer<type_msg>* peer) {} }
+
+	};
 
 }
 

@@ -102,7 +102,7 @@ namespace quantas {
 
 				if (j == config["infectPeersAtRound"])
 					system.infectPeers(config["numberOfPeersToInfect"],
-									   infection::crash<type_msg>);
+						infection<type_msg>[config["infectionType"]]);
 
 				// do the receive phase of the round
 
