@@ -67,7 +67,11 @@ namespace quantas{
         // checkContents loops through the receivedMessages attempting to advance the status of consensus
         void                  checkContents();
         // submitTrans creates a transaction and broadcasts it to everyone
-        void                  submitTrans(int tranID);
+        // Use the Strategy pattern so that peer behavior can be modified after
+        // the peer is created.
+        void                               defaultSubmitTrans(int tranID);
+        std::function<void(PBFTPeer*,int)> submitTransPerformer = [] (PBFTPeer* peer, int tranID) { peer->defaultSubmitTrans(tranID); };
+        void                               submitTrans(int tranID)      { submitTransPerformer(this, tranID); };
     };
 
     Simulation<quantas::PBFTPeerMessage, quantas::PBFTPeer>* generateSim();

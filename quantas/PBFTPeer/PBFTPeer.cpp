@@ -140,7 +140,7 @@ namespace quantas {
 
 	}
 
-	void PBFTPeer::submitTrans(int tranID) {
+	void PBFTPeer::defaultSubmitTrans(int tranID) {
 		PBFTPeerMessage message;
 		message.messageType = "trans";
 		message.trans = tranID;
