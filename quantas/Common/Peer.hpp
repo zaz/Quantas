@@ -57,12 +57,9 @@ namespace quantas{
         // perform one step of the Algorithm with the messages in inStream
         // Use the Strategy pattern so that peer behavior can be modified after
         // the peer is created.
-        std::function<void(Peer*)> computationPerformer = [] (Peer* peer) { peer->defaultComputation(); };
         virtual void                       defaultComputation      () = 0;
+        std::function<void(Peer*)> computationPerformer = [] (Peer* peer) { peer->defaultComputation(); };
         void                               performComputation      () { computationPerformer(this); };
-        void setComputationPerformer(std::function<void(Peer*)> newComputationPerformer) {
-            computationPerformer = newComputationPerformer;
-        }
 
         // ran once per round, used to submit transactions or collect metrics
         virtual void                       endOfRound              (const vector<Peer<message>*>& _peers) {};
