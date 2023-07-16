@@ -19,6 +19,7 @@ You should have received a copy of the GNU General Public License along with QUA
 #include <map>
 #include <functional>
 #include "Peer.hpp"
+#include "../PBFTPeer/PBFTPeer.hpp"
 
 using std::map; using std::function; using std::string;
 
@@ -33,6 +34,10 @@ namespace quantas {
 
 		{ "crash", [](Peer<type_msg>* peer) {
 			peer->computationPerformer = [](Peer<type_msg>* peer) {};
+		} },
+
+		{ "censor", [](Peer<type_msg>* peer) {
+			peer->submitTransPerformer = [](Peer<type_msg>* peer, int tranID) {};
 		} }
 
 	};
