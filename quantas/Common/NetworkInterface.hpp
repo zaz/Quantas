@@ -114,6 +114,7 @@ namespace quantas{
         void                               unicast               (message msg);
         void                               unicastTo             (message msg, long dest);
         void                               randomMulticast       (message msg);
+        void                               randomMulticast       (message msg, float p);
     public:
         NetworkInterface                                         ();
         NetworkInterface                                         (interfaceId);
@@ -223,23 +224,38 @@ namespace quantas{
         }
     }
     
-    // Multicasts to a random sample of neighbors without repetition. Size of sample is also random.
+    // Multicasts to a random sample of neighbors without repetition.
+
+    // Sample size is a random uniform distribution between 0 and neighbours * p.
     template <class message>
     void NetworkInterface<message>::randomMulticast(message msg) {
+        randomMulticast(msg, -1);
+    }
+
+    // Same, but sample size is number of neighbours * p, rounded down.
+    template <class message>
+    void NetworkInterface<message>::randomMulticast(message msg, float p) {
        
-        // interval: [0, n], where n is the amount of neighbors the particular node calling this function has
-        int amountOfNeighbors = uniformInt(0, _neighbors.size());
+        int amountOfNeighbors;
+        if (p < 0)
+            amountOfNeighbors = uniformInt(0, _neighbors.size());
+        else
+            amountOfNeighbors = _neighbors.size() * p;
                 
+        // std::sample selects 'amountOfNeighbors' elements from the vector
+        // '_neighbors' without repetition. Each possible sample has equal
+        // probability of appearance
         std::vector<interfaceId> out;
-        /* NEED TO USE C++17 OR NEWER FOR std::sample */
-        std::sample( // std::sample selects 'amountOfNeighbors' elements from the vector '_neighbors' without repetition. Each possible sample has equal probability of appearance
+        std::sample(
             _neighbors.begin(), _neighbors.end(),
             std::back_inserter(out),
             amountOfNeighbors,
             RANDOM_GENERATOR
         );
 
-        for (auto it = out.begin(); it != out.end(); ++it) { // iterate through vector where the samples are written and send a message to all of them
+        // iterate through vector where the samples are written and send a
+        // message to all of them
+        for (auto it = out.begin(); it != out.end(); ++it) {
             Packet<message> outPacket = Packet<message>(-1);
             outPacket.setSource(id());
             outPacket.setTarget(*it);
