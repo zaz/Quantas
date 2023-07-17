@@ -106,7 +106,7 @@ namespace quantas{
         // logging
         ostream                                         *_log;
         bool                                            _printNeighborhood;
-
+    public:
         // functions for sending messages to other interfaces
         void                               broadcast             (message msg);
         void                               broadcastBut          (message msg, long id);
@@ -114,7 +114,7 @@ namespace quantas{
         void                               unicastTo             (message msg, long dest);
         void                               randomMulticast       (message msg);
         void                               randomMulticast       (message msg, float p);
-    public:
+
         NetworkInterface                                         ();
         NetworkInterface                                         (interfaceId);
         NetworkInterface                                         (const NetworkInterface &);
