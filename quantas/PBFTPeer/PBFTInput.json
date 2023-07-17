@@ -2,7 +2,7 @@
   "experiments": [
     {
       "algorithm": "PBFT",
-      "logFile": "results/pBFT/d10/r1000/p100/i32t.json",
+      "logFile": "results/pBFT/d10/r400/p100/i00.json",
       "threadCount": 1,
       "distribution": {
         "type": "uniform",
@@ -13,14 +13,12 @@
         "initialPeers": 100,
         "totalPeers": 100
       },
-      "tests": 1000,
-      "rounds": 1000,
-      "infectPeersAtRound": 200,
-      "numberOfPeersToInfect": 32
+      "tests": 12,
+      "rounds": 400
     },
     {
       "algorithm": "PBFT",
-      "logFile": "results/pBFT/d10/r1000/p100/i33t.json",
+      "logFile": "results/pBFT/d10/r400/p100/i32.json",
       "threadCount": 1,
       "distribution": {
         "type": "uniform",
@@ -31,10 +29,11 @@
         "initialPeers": 100,
         "totalPeers": 100
       },
-      "tests": 1000,
-      "rounds": 1000,
+      "tests": 12,
+      "rounds": 400,
       "infectPeersAtRound": 200,
-      "numberOfPeersToInfect": 33
+      "numberOfPeersToInfect": 32,
+      "infectionType": "crash"
     }
   ]
 }
