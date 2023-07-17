@@ -7,13 +7,13 @@ QUANTAS is distributed in the hope that it will be useful, but WITHOUT ANY WARRA
 You should have received a copy of the GNU General Public License along with QUANTAS. If not, see <https://www.gnu.org/licenses/>.
 */
 //
-// This class represents a connection between a peer and it's neighbors. A peer 
+// This class represents a connection between a peer and it's neighbors. A peer
 // is a derived class from the NetworkInterface class that adds algorithm specific details.
 // The NetworkInterface class handles sending and receiving of packets (messages) between peers.
-// It also tracks what interfaces (and thus peers) this NetworkInterface is able to communicate with. 
+// It also tracks what interfaces (and thus peers) this NetworkInterface is able to communicate with.
 //
 // This class is responsable for
-// * storeing all the inbound packets to this interface 
+// * storeing all the inbound packets to this interface
 // * updating inbound packets delay (decreaseing the delay each round until it is delivered)
 // * storing a list of neighbors (a.k.a approved interfaces to send to)
 // * storing the maximum delay a packet can have when being sent to a neighbors interface
@@ -21,31 +21,31 @@ You should have received a copy of the GNU General Public License along with QUA
 // * storeing received packets at this interface
 //
 // === RECEIVING MESSAGES ===
-// Each instance of NetworkInterface has a list of its neighbors NetworkInterface ID <_neighbors>, 
-// and a hashmap <_inBoundChannels> with the ID of this NetworkInterface's neighbors as the key and a 
-// queue of inbound packets (or <aChannel>) as the value. When receive is called each packet in each 
-// channel has <<moveForward>> called. This decrements the delay on the packet (how many rounds the 
-// packet must wait until it's arrvied at it's target interface). Then the head of each channel has 
+// Each instance of NetworkInterface has a list of its neighbors NetworkInterface ID <_neighbors>,
+// and a hashmap <_inBoundChannels> with the ID of this NetworkInterface's neighbors as the key and a
+// queue of inbound packets (or <aChannel>) as the value. When receive is called each packet in each
+// channel has <<moveForward>> called. This decrements the delay on the packet (how many rounds the
+// packet must wait until it's arrvied at it's target interface). Then the head of each channel has
 // <<hasArrived>> called. This returns true is the packet has arrvied (delay == 0) and false otherwise.
-// If <<hasArrived>> is true then the packet is moved from the channel in <_inBoundChannels> to 
-// the NetworkInterface's <_inStream>. This repeats poping the head of the channel and pushing onto 
+// If <<hasArrived>> is true then the packet is moved from the channel in <_inBoundChannels> to
+// the NetworkInterface's <_inStream>. This repeats poping the head of the channel and pushing onto
 // <_inStream> until a packet has not arrived. In this way all packets are received in the same order
-// they where sent. 
+// they where sent.
 //
 // Note: packets are received in the same order they where sent and only after all packets sent before
 // it have been received
-// 
+//
 //
 // === TRANSMITING MESSAGES ===
-// Each instance of NetworkInterface has a list of references to it's neighbor's NetworkInterface 
+// Each instance of NetworkInterface has a list of references to it's neighbor's NetworkInterface
 // and a list of the delays to thouse neighbor's interface. These are each stored in hashmaps with
-// the neighbor's NetworkInterface ID as the key and either the reference to the interface or delay 
-// as the value. The connection between interfaces is called a channel. When transmit is run on a 
-// peer derivitive each packet in the outStream is sent. When a packet is sent, the target ID of 
-// the packet is used to look up the referenced interface and the delay associated with that interface. 
+// the neighbor's NetworkInterface ID as the key and either the reference to the interface or delay
+// as the value. The connection between interfaces is called a channel. When transmit is run on a
+// peer derivitive each packet in the outStream is sent. When a packet is sent, the target ID of
+// the packet is used to look up the referenced interface and the delay associated with that interface.
 // The packet delay is set between 1 and the delay between the two interfaces (the delay on the channel)
-// The method <<SEND>> is then called on the neighbor's interface (not this object but the instance of 
-// NetworkInterface in the target peer). <<SEND>> pushes the packet into the _inBoundChannel of the 
+// The method <<SEND>> is then called on the neighbor's interface (not this object but the instance of
+// NetworkInterface in the target peer). <<SEND>> pushes the packet into the _inBoundChannel of the
 // tagets Peers networkInterface
 //
 
@@ -79,7 +79,7 @@ namespace quantas{
     using std::boolalpha;
     using std::find;
 
-    
+
     static const int  LOG_WIDTH  = 27;  // var used for column width in loggin
     typedef long      interfaceId;
     //
@@ -88,7 +88,7 @@ namespace quantas{
     template <class message>
     class NetworkInterface{
     private:
-        
+
         typedef deque<Packet<message> >                 aChannel;
 
         interfaceId                                     _id;
@@ -98,17 +98,16 @@ namespace quantas{
         deque<Packet<message> >                         _inStream;// messages that have arrived at this peer
         deque<Packet<message> >                         _outStream;// messages waiting to be sent by this peer
         vector<interfaceId>                             _neighbors; // list of interfaces that are directly connected to this one (i.e. they can send messages directly to each other)
-        
+
          // send a message to this peer
         void                               send                  (Packet<message>);
 
     protected:
-        
         // logging
         ostream                                         *_log;
         bool                                            _printNeighborhood;
 
-        // functions for peer
+        // functions for sending messages to other interfaces
         void                               broadcast             (message msg);
         void                               broadcastBut          (message msg, long id);
         void                               unicast               (message msg);
@@ -125,10 +124,10 @@ namespace quantas{
         void                               setLogFile            (ostream &o)                               {_log = &o;};
         void                               printNeighborhoodOn   ()                                         {_printNeighborhood = true;}
         void                               printNeighborhoodOff  ()                                         {_printNeighborhood = false;}
-        
+
         // getters
         vector<interfaceId>                neighbors             ()const                                    {return _neighbors;};
-        vector<interfaceId>                channels              ()const;                                   
+        vector<interfaceId>                channels              ()const;
         interfaceId                        id                    ()const                                    {return _id;};
         bool                               isNeighbor            (interfaceId id)const;
         int                                getDelayToNeighbor    (interfaceId id)const;
@@ -148,15 +147,15 @@ namespace quantas{
 
         // moves msgs from the channel to the inStream if msg delay is 0 else decrease msg delay by 1
         void                               receive               ();
-       
+
         // sends all messages in _outStream to there respective targets
         void                               transmit              ();
-        
+
         void                               log                   ()const;
         ostream&                           printTo               (ostream&)const;
         NetworkInterface&                  operator=             (const NetworkInterface&);
 
-        // == and != compare all attributes 
+        // == and != compare all attributes
         bool                               operator==            (const NetworkInterface &rhs)const          {return (_id == rhs._id);};
         bool                               operator!=            (const NetworkInterface &rhs)const          {return !(*this == rhs);};
         // greater and less then are based on peer id (standard string comparison)
@@ -209,7 +208,7 @@ namespace quantas{
             _outStream.push_back(outPacket);
         }
     }
-    
+
     // Send to a single designated neighbor
     template <class message>
     void NetworkInterface<message>::unicastTo(message msg, long dest){
@@ -223,10 +222,10 @@ namespace quantas{
             }
         }
     }
-    
+
     // Multicasts to a random sample of neighbors without repetition.
 
-    // Sample size is a random uniform distribution between 0 and neighbours * p.
+    // Sample size is a random uniform distribution between 0 and neighbours
     template <class message>
     void NetworkInterface<message>::randomMulticast(message msg) {
         randomMulticast(msg, -1);
@@ -235,13 +234,13 @@ namespace quantas{
     // Same, but sample size is number of neighbours * p, rounded down.
     template <class message>
     void NetworkInterface<message>::randomMulticast(message msg, float p) {
-       
+
         int amountOfNeighbors;
         if (p < 0)
             amountOfNeighbors = uniformInt(0, _neighbors.size());
         else
             amountOfNeighbors = _neighbors.size() * p;
-                
+
         // std::sample selects 'amountOfNeighbors' elements from the vector
         // '_neighbors' without repetition. Each possible sample has equal
         // probability of appearance
@@ -263,7 +262,7 @@ namespace quantas{
             _outStream.push_back(outPacket);
         }
     }
-	
+
     template <class message>
     NetworkInterface<message>::NetworkInterface(){
         _id = NO_PEER_ID;
@@ -321,25 +320,25 @@ namespace quantas{
     // called on sender
     template <class message>
     void NetworkInterface<message>::transmit(){
-        // send all messages to there destination peer channels  
+        // send all messages to there destination peer channels
         while(!_outStream.empty()){
-			Packet<message> outMessage = _outStream.front();
-			_outStream.pop_front();
-			if (_id == outMessage.targetId()) {// if sent to self loop back next round
-				outMessage.setDelay(1);
-				_inStream.push_back(outMessage);
-			}
-			else if (!isNeighbor(outMessage.targetId()))// skip messages if they are not sent to a neighbor
-			{
-				continue;
-			}
-			else {
-				interfaceId targetId = outMessage.targetId();
-				int maxDelay = _outBoundChannelDelays.at(targetId);
-				outMessage.setDelay(maxDelay);
-				_outBoundChannels[targetId]->send(outMessage);
-			}
-		}
+            Packet<message> outMessage = _outStream.front();
+            _outStream.pop_front();
+            if (_id == outMessage.targetId()) {// if sent to self loop back next round
+                outMessage.setDelay(1);
+                _inStream.push_back(outMessage);
+            }
+            else if (!isNeighbor(outMessage.targetId()))// skip messages if they are not sent to a neighbor
+            {
+                continue;
+            }
+            else {
+                interfaceId targetId = outMessage.targetId();
+                int maxDelay = _outBoundChannelDelays.at(targetId);
+                outMessage.setDelay(maxDelay);
+                _outBoundChannels[targetId]->send(outMessage);
+            }
+        }
     }
 
     template <class message>
@@ -441,4 +440,4 @@ namespace quantas{
         return out;
     }
 }
-#endif 
+#endif
