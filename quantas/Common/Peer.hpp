@@ -66,6 +66,10 @@ namespace quantas{
         void     submitTrans(int tranID) { submitTransPerformer(this, tranID); };
         // not all peers actually have a submitTrans function
 
+        // Wraps broadcast, multicast, etc. Allows send behavior to be modified
+        // after the peer is created.
+        std::function<void(Peer*,message)>       sendMsg = [] (Peer* peer, message msg) { peer->NetworkInterface<message>::broadcast(msg); };
+
         // ran once per round, used to submit transactions or collect metrics
         virtual void                       endOfRound              (const vector<Peer<message>*>& _peers) {};
         static int                         getRound                ()                                     { return _round; };

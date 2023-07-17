@@ -38,6 +38,11 @@ namespace quantas {
 
 		{ "censor", [](Peer<type_msg>* peer) {
 			peer->submitTransPerformer = [](Peer<type_msg>* peer, int tranID) {};
+		} },
+
+		{ "equivocate", [](Peer<type_msg>* peer) {
+			peer->sendMsg = [](Peer<type_msg>* peer, type_msg msg)
+				{ peer->NetworkInterface<type_msg>::randomMulticast(msg); };
 		} }
 
 	};

@@ -113,7 +113,8 @@ namespace quantas {
 				PBFTPeerMessage newMsg = receivedMessages[sequenceNum][0];
 				newMsg.messageType = "commit";
 				newMsg.Id = id();
-				broadcast(newMsg);
+				// sendMsg is a broadcast wrapper that allows for equivocation
+				sendMsg(this, newMsg);
 				receivedMessages[sequenceNum].push_back(newMsg);
 			}
 		}
