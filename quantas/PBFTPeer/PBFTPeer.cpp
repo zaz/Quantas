@@ -28,7 +28,7 @@ namespace quantas {
 
 	void PBFTPeer::defaultComputation() {
 		if (id() == 0 && getRound() == 0) {
-			submitTrans(currentTransaction);
+			Peer::submitTrans(currentTransaction);
 		}
 		if (true)
 			checkInStrm();
@@ -132,7 +132,7 @@ namespace quantas {
 				latency += getRound() - receivedMessages[sequenceNum][0].roundSubmitted;
 				sequenceNum++;
 				if (id() == 0) {
-					submitTrans(currentTransaction);
+					Peer::submitTrans(currentTransaction);
 				}
 				checkContents();
 			}

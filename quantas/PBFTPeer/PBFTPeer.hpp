@@ -33,6 +33,8 @@ namespace quantas{
         ~PBFTPeer                            ();
 
         void                 defaultComputation();
+        // submitTrans creates a transaction and broadcasts it to everyone
+        void                 defaultSubmitTrans(int tranID);
 
         // perform any calculations needed at the end of a round such as determine throughput (only ran once, not for every peer)
         void                 endOfRound(const vector<Peer<PBFTPeerMessage>*>& _peers);
@@ -66,10 +68,6 @@ namespace quantas{
         void                  checkInStrm();
         // checkContents loops through the receivedMessages attempting to advance the status of consensus
         void                  checkContents();
-        //
-        // submitTrans creates a transaction and broadcasts it to everyone
-        void                  defaultSubmitTrans(int tranID);
-        void     submitTrans(int tranID) { submitTransPerformer(this, tranID); };
     };
 
     Simulation<quantas::PBFTPeerMessage, quantas::PBFTPeer>* generateSim();

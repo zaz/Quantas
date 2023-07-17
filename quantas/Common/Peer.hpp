@@ -63,6 +63,7 @@ namespace quantas{
 
         virtual void                       defaultSubmitTrans(int tranID) {};
         std::function<void(Peer*,int)> submitTransPerformer = [] (Peer* peer, int tranID) { peer->defaultSubmitTrans(tranID); };
+        void     submitTrans(int tranID) { submitTransPerformer(this, tranID); };
         // not all peers actually have a submitTrans function
 
         // ran once per round, used to submit transactions or collect metrics
