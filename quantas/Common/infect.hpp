@@ -40,9 +40,118 @@ namespace quantas {
 			peer->submitTransPerformer = [](Peer<type_msg>* peer, int tranID) {};
 		} },
 
+		// pick a uniform random number of peers and send the commit message to
+		// only those nodes
 		{ "equivocate", [](Peer<type_msg>* peer) {
 			peer->sendMsg = [](Peer<type_msg>* peer, type_msg msg)
 				{ peer->NetworkInterface<type_msg>::randomMulticast(msg); };
+		} },
+
+		{ "equivocate00", [](Peer<type_msg>* peer) {
+			peer->sendMsg = [](Peer<type_msg>* peer, type_msg msg)
+				{ peer->NetworkInterface<type_msg>::randomMulticast(msg, .00); };
+		} },
+
+		// same as above, but send commit to 1% of peers
+		{ "equivocate01", [](Peer<type_msg>* peer) {
+			peer->sendMsg = [](Peer<type_msg>* peer, type_msg msg)
+				{ peer->NetworkInterface<type_msg>::randomMulticast(msg, .01); };
+		} },
+
+		{ "equivocate02", [](Peer<type_msg>* peer) {
+			peer->sendMsg = [](Peer<type_msg>* peer, type_msg msg)
+				{ peer->NetworkInterface<type_msg>::randomMulticast(msg, .02); };
+		} },
+
+		{ "equivocate03", [](Peer<type_msg>* peer) {
+			peer->sendMsg = [](Peer<type_msg>* peer, type_msg msg)
+				{ peer->NetworkInterface<type_msg>::randomMulticast(msg, .03); };
+		} },
+
+		{ "equivocate04", [](Peer<type_msg>* peer) {
+			peer->sendMsg = [](Peer<type_msg>* peer, type_msg msg)
+				{ peer->NetworkInterface<type_msg>::randomMulticast(msg, .04); };
+		} },
+
+		{ "equivocate05", [](Peer<type_msg>* peer) {
+			peer->sendMsg = [](Peer<type_msg>* peer, type_msg msg)
+				{ peer->NetworkInterface<type_msg>::randomMulticast(msg, .05); };
+		} },
+
+		{ "equivocate05", [](Peer<type_msg>* peer) {
+			peer->sendMsg = [](Peer<type_msg>* peer, type_msg msg)
+				{ peer->NetworkInterface<type_msg>::randomMulticast(msg, .05); };
+		} },
+
+		{ "equivocate06", [](Peer<type_msg>* peer) {
+			peer->sendMsg = [](Peer<type_msg>* peer, type_msg msg)
+				{ peer->NetworkInterface<type_msg>::randomMulticast(msg, .06); };
+		} },
+
+		{ "equivocate07", [](Peer<type_msg>* peer) {
+			peer->sendMsg = [](Peer<type_msg>* peer, type_msg msg)
+				{ peer->NetworkInterface<type_msg>::randomMulticast(msg, .07); };
+		} },
+
+		{ "equivocate08", [](Peer<type_msg>* peer) {
+			peer->sendMsg = [](Peer<type_msg>* peer, type_msg msg)
+				{ peer->NetworkInterface<type_msg>::randomMulticast(msg, .08); };
+		} },
+
+		{ "equivocate09", [](Peer<type_msg>* peer) {
+			peer->sendMsg = [](Peer<type_msg>* peer, type_msg msg)
+				{ peer->NetworkInterface<type_msg>::randomMulticast(msg, .09); };
+		} },
+
+		{ "equivocate10", [](Peer<type_msg>* peer) {
+			peer->sendMsg = [](Peer<type_msg>* peer, type_msg msg)
+				{ peer->NetworkInterface<type_msg>::randomMulticast(msg, .10); };
+		} },
+
+		{ "equivocate20", [](Peer<type_msg>* peer) {
+			peer->sendMsg = [](Peer<type_msg>* peer, type_msg msg)
+				{ peer->NetworkInterface<type_msg>::randomMulticast(msg, .20); };
+		} },
+
+		{ "equivocate30", [](Peer<type_msg>* peer) {
+			peer->sendMsg = [](Peer<type_msg>* peer, type_msg msg)
+				{ peer->NetworkInterface<type_msg>::randomMulticast(msg, .30); };
+		} },
+
+		{ "equivocate40", [](Peer<type_msg>* peer) {
+			peer->sendMsg = [](Peer<type_msg>* peer, type_msg msg)
+				{ peer->NetworkInterface<type_msg>::randomMulticast(msg, .40); };
+		} },
+
+		// same as above, but send commit to 50% of peers
+		{ "equivocate50", [](Peer<type_msg>* peer) {
+			peer->sendMsg = [](Peer<type_msg>* peer, type_msg msg)
+				{ peer->NetworkInterface<type_msg>::randomMulticast(msg, .5); };
+		} },
+
+		{ "equivocate60", [](Peer<type_msg>* peer) {
+			peer->sendMsg = [](Peer<type_msg>* peer, type_msg msg)
+				{ peer->NetworkInterface<type_msg>::randomMulticast(msg, .6); };
+		} },
+
+		{ "equivocate70", [](Peer<type_msg>* peer) {
+			peer->sendMsg = [](Peer<type_msg>* peer, type_msg msg)
+				{ peer->NetworkInterface<type_msg>::randomMulticast(msg, .7); };
+		} },
+
+		{ "equivocate80", [](Peer<type_msg>* peer) {
+			peer->sendMsg = [](Peer<type_msg>* peer, type_msg msg)
+				{ peer->NetworkInterface<type_msg>::randomMulticast(msg, .8); };
+		} },
+
+		{ "equivocate90", [](Peer<type_msg>* peer) {
+			peer->sendMsg = [](Peer<type_msg>* peer, type_msg msg)
+				{ peer->NetworkInterface<type_msg>::randomMulticast(msg, .9); };
+		} },
+
+		{ "equivocate100", [](Peer<type_msg>* peer) {
+			peer->sendMsg = [](Peer<type_msg>* peer, type_msg msg)
+				{ peer->NetworkInterface<type_msg>::randomMulticast(msg, 1); };
 		} }
 
 	};

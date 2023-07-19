@@ -78,7 +78,7 @@ namespace quantas {
 					message.messageType = "pre-prepare";
 					message.Id = id();
 					message.sequenceNum = sequenceNum;
-					broadcast(message);
+					sendMsg(this, message);
 					if (receivedMessages.size() < sequenceNum + 1) {
 						receivedMessages.push_back(vector<PBFTPeerMessage>());
 					}
@@ -94,7 +94,7 @@ namespace quantas {
 					PBFTPeerMessage newMsg = message;
 					newMsg.messageType = "prepare";
 					newMsg.Id = id();
-					broadcast(newMsg);
+					sendMsg(this, newMsg);
 					receivedMessages[sequenceNum].push_back(newMsg);
 				}
 			}
@@ -147,7 +147,7 @@ namespace quantas {
 		message.trans = tranID;
 		message.Id = id();
 		message.roundSubmitted = getRound();
-		broadcast(message);
+		sendMsg(this, message);
 		transactions.push_back(message);
 		currentTransaction++;
 	}

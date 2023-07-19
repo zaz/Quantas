@@ -2,7 +2,7 @@
   "experiments": [
     {
       "algorithm": "PBFT",
-      "logFile": "results/pBFT/d10/r400/p100/i00.json",
+      "logFile": "results/pBFT/d10/r400/p100/i32e00.json",
       "threadCount": 1,
       "distribution": {
         "type": "uniform",
@@ -13,27 +13,201 @@
         "initialPeers": 100,
         "totalPeers": 100
       },
-      "tests": 12,
-      "rounds": 400
-    },
-    {
-      "algorithm": "PBFT",
-      "logFile": "results/pBFT/d10/r400/p100/i32.json",
-      "threadCount": 1,
-      "distribution": {
-        "type": "uniform",
-        "maxDelay": 10
-      },
-      "topology": {
-        "type": "complete",
-        "initialPeers": 100,
-        "totalPeers": 100
-      },
-      "tests": 12,
+      "tests": 100,
       "rounds": 400,
       "infectPeersAtRound": 200,
       "numberOfPeersToInfect": 32,
-      "infectionType": "crash"
+      "infectionType": "equivocate00"
+    },
+    {
+      "algorithm": "PBFT",
+      "logFile": "results/pBFT/d10/r400/p100/i32e10.json",
+      "threadCount": 1,
+      "distribution": {
+        "type": "uniform",
+        "maxDelay": 10
+      },
+      "topology": {
+        "type": "complete",
+        "initialPeers": 100,
+        "totalPeers": 100
+      },
+      "tests": 100,
+      "rounds": 400,
+      "infectPeersAtRound": 200,
+      "numberOfPeersToInfect": 32,
+      "infectionType": "equivocate10"
+    },
+    {
+      "algorithm": "PBFT",
+      "logFile": "results/pBFT/d10/r400/p100/i32e20.json",
+      "threadCount": 1,
+      "distribution": {
+        "type": "uniform",
+        "maxDelay": 10
+      },
+      "topology": {
+        "type": "complete",
+        "initialPeers": 100,
+        "totalPeers": 100
+      },
+      "tests": 100,
+      "rounds": 400,
+      "infectPeersAtRound": 200,
+      "numberOfPeersToInfect": 32,
+      "infectionType": "equivocate20"
+    },
+    {
+      "algorithm": "PBFT",
+      "logFile": "results/pBFT/d10/r400/p100/i32e30.json",
+      "threadCount": 1,
+      "distribution": {
+        "type": "uniform",
+        "maxDelay": 10
+      },
+      "topology": {
+        "type": "complete",
+        "initialPeers": 100,
+        "totalPeers": 100
+      },
+      "tests": 100,
+      "rounds": 400,
+      "infectPeersAtRound": 200,
+      "numberOfPeersToInfect": 32,
+      "infectionType": "equivocate30"
+    },
+    {
+      "algorithm": "PBFT",
+      "logFile": "results/pBFT/d10/r400/p100/i32e40.json",
+      "threadCount": 1,
+      "distribution": {
+        "type": "uniform",
+        "maxDelay": 10
+      },
+      "topology": {
+        "type": "complete",
+        "initialPeers": 100,
+        "totalPeers": 100
+      },
+      "tests": 100,
+      "rounds": 400,
+      "infectPeersAtRound": 200,
+      "numberOfPeersToInfect": 32,
+      "infectionType": "equivocate40"
+    },
+    {
+      "algorithm": "PBFT",
+      "logFile": "results/pBFT/d10/r400/p100/i32e50.json",
+      "threadCount": 1,
+      "distribution": {
+        "type": "uniform",
+        "maxDelay": 10
+      },
+      "topology": {
+        "type": "complete",
+        "initialPeers": 100,
+        "totalPeers": 100
+      },
+      "tests": 100,
+      "rounds": 400,
+      "infectPeersAtRound": 200,
+      "numberOfPeersToInfect": 32,
+      "infectionType": "equivocate50"
+    },
+    {
+      "algorithm": "PBFT",
+      "logFile": "results/pBFT/d10/r400/p100/i32e60.json",
+      "threadCount": 1,
+      "distribution": {
+        "type": "uniform",
+        "maxDelay": 10
+      },
+      "topology": {
+        "type": "complete",
+        "initialPeers": 100,
+        "totalPeers": 100
+      },
+      "tests": 100,
+      "rounds": 400,
+      "infectPeersAtRound": 200,
+      "numberOfPeersToInfect": 32,
+      "infectionType": "equivocate60"
+    },
+    {
+      "algorithm": "PBFT",
+      "logFile": "results/pBFT/d10/r400/p100/i32e70.json",
+      "threadCount": 1,
+      "distribution": {
+        "type": "uniform",
+        "maxDelay": 10
+      },
+      "topology": {
+        "type": "complete",
+        "initialPeers": 100,
+        "totalPeers": 100
+      },
+      "tests": 100,
+      "rounds": 400,
+      "infectPeersAtRound": 200,
+      "numberOfPeersToInfect": 32,
+      "infectionType": "equivocate70"
+    },
+    {
+      "algorithm": "PBFT",
+      "logFile": "results/pBFT/d10/r400/p100/i32e80.json",
+      "threadCount": 1,
+      "distribution": {
+        "type": "uniform",
+        "maxDelay": 10
+      },
+      "topology": {
+        "type": "complete",
+        "initialPeers": 100,
+        "totalPeers": 100
+      },
+      "tests": 100,
+      "rounds": 400,
+      "infectPeersAtRound": 200,
+      "numberOfPeersToInfect": 32,
+      "infectionType": "equivocate80"
+    },
+    {
+      "algorithm": "PBFT",
+      "logFile": "results/pBFT/d10/r400/p100/i32e90.json",
+      "threadCount": 1,
+      "distribution": {
+        "type": "uniform",
+        "maxDelay": 10
+      },
+      "topology": {
+        "type": "complete",
+        "initialPeers": 100,
+        "totalPeers": 100
+      },
+      "tests": 100,
+      "rounds": 400,
+      "infectPeersAtRound": 200,
+      "numberOfPeersToInfect": 32,
+      "infectionType": "equivocate90"
+    },
+    {
+      "algorithm": "PBFT",
+      "logFile": "results/pBFT/d10/r400/p100/i32e100.json",
+      "threadCount": 1,
+      "distribution": {
+        "type": "uniform",
+        "maxDelay": 10
+      },
+      "topology": {
+        "type": "complete",
+        "initialPeers": 100,
+        "totalPeers": 100
+      },
+      "tests": 100,
+      "rounds": 400,
+      "infectPeersAtRound": 200,
+      "numberOfPeersToInfect": 32,
+      "infectionType": "equivocate100"
     }
   ]
 }
