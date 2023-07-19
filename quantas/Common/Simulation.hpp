@@ -22,7 +22,7 @@ You should have received a copy of the GNU General Public License along with QUA
 #include "Network.hpp"
 #include "LogWriter.hpp"
 #include "BS_thread_pool.hpp"
-
+#include "infect.hpp"
 
 using std::ofstream;
 using std::thread;
@@ -44,7 +44,7 @@ namespace quantas {
 
         // logging functions
         ostream& 			printTo		(ostream &out)const;
-        friend ostream&     operator<<  (ostream &out, const Simulation &sim)      {return sim.printTo(out);};
+        friend ostream& operator<< (ostream &out, const Simulation &sim) {return sim.printTo(out);};
 
     };
 
