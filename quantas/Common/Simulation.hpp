@@ -101,6 +101,9 @@ namespace quantas {
 				LogWriter::instance()->setRound(j); // Set the round number for logging
 
 				if (j == config["infectPeersAtRound"])
+					// TODO: check config["infectionType"] exists, or this will
+					// throw: terminate called after throwing an instance of
+					// 'std::bad_function_call'
 					system.infectPeers(config["numberOfPeersToInfect"],
 						infection<type_msg>[config["infectionType"]]);
 
